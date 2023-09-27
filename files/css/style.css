@@ -1,0 +1,8 @@
+:root {
+    --dark: #212529;
+}
+.info-card {
+    background-color: var(--dark);
+    color: white;
+    margin: 10px;
+}
