@@ -28,6 +28,7 @@ function getCity(event) {
             city = data[0].name;
             lon = data[0].lon;
             lat = data[0].lat;
+            searchInput.value = ''
             checkWeather();
         })
 }
