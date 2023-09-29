@@ -7,7 +7,7 @@
     margin: 10px;
 }
 
-#currentCity {
+#currentCity , #fiveDay {
     border-bottom: 2px solid var(--dark);
     padding-bottom: 10px;
 }

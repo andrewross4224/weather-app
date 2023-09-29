@@ -6,6 +6,8 @@ var currentCity = document.getElementById("currentCity")
 var currentTemp = document.getElementById("currentTemp")
 var currentWind = document.getElementById("currentWind")
 var currentHumidity = document.getElementById("currentHumidity")
+// selector to input data to charts for 5day
+var chartDataTemp = document.getElementsByClassName("dataTemp")
 // variables to globally save last run lon and lat coord
 var currentWeather;
 var state;
@@ -41,14 +43,22 @@ function checkWeather() {
             console.log(data);
             currentWeather = data;
             renderCurrent();
+            renderFiveDay();
         })
 }
 // Function for rendering data onto page
-function renderCurrent(){
+function renderCurrent() {
     currentCity.textContent = "The current weather in " + city + ", " + state + " is:";
     currentTemp.textContent = "Temp: " + currentWeather.list[0].main.temp + " Deg";
-    currentWind.textContent = "Wind: " + currentWeather.list[0].wind.speed + " Mph"
-    currentHumidity.textContent = "Humidity: " + currentWeather.list[0].main.humidity + "%"
+    currentWind.textContent = "Wind: " + currentWeather.list[0].wind.speed + " Mph";
+    currentHumidity.textContent = "Humidity: " + currentWeather.list[0].main.humidity + "%";
+}
+
+function renderFiveDay() {
+    for(i=0; i < chartDataTemp.length; i++){
+        chartDataTemp[i].textContent = currentWeather.list[i].main.temp;
+        
+    }
 }
 // event listener for search button
 searchButton.addEventListener('click', getCity);
