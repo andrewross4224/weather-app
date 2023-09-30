@@ -2,18 +2,29 @@
 var searchButton = document.getElementById("searchButton");
 var searchInput = document.getElementById("searchBar");
 // Element selectors for currently viewed city stats
-var currentCity = document.getElementById("currentCity")
-var currentTemp = document.getElementById("currentTemp")
-var currentWind = document.getElementById("currentWind")
-var currentHumidity = document.getElementById("currentHumidity")
+var currentCity = document.getElementById("currentCity");
+var currentTemp = document.getElementById("currentTemp");
+var currentWind = document.getElementById("currentWind");
+var currentHumidity = document.getElementById("currentHumidity");
 // selector to input data to charts for 5day
-var chartDataTemp = document.getElementsByClassName("dataTemp")
+var chartDataTemp = document.getElementsByClassName("dataTemp");
+var chartDataWind = document.getElementsByClassName("dataWind");
+var chartDataHum = document.getElementsByClassName("dataHum")
+// Current time and day
+var time = dayjs().format("YYYY-MM-DD HH:mm:ss");
+// Start point for 5day data entry
+var timeCheck = dayjs().add(1, 'd').format('YYYY-MM-DD 06:00:00')
+var index = 0;
 // variables to globally save last run lon and lat coord
 var currentWeather;
 var state;
 var city;
 var lon;
 var lat;
+// setting current time to check date and hour against
+setInterval(function updateTime() {
+    time = dayjs().format("YYYY-MM-DD HH:mm:ss")
+}, 1000);
 // function to get lon and lat of city based on user input
 function getCity(event) {
     event.preventDefault();
@@ -55,10 +66,17 @@ function renderCurrent() {
 }
 
 function renderFiveDay() {
-    for(i=0; i < chartDataTemp.length; i++){
-        chartDataTemp[i].textContent = currentWeather.list[i].main.temp;
-        
+    for (i = 0; i < currentWeather.list.length; i++) {
+        if (currentWeather.list[i].dt_txt === timeCheck) {
+            chartDataTemp[index].textContent = currentWeather.list[i].main.temp + " Deg";
+            chartDataWind[index].textContent = currentWeather.list[i].wind.speed + " Mph";
+            chartDataHum[index].textContent = currentWeather.list[i].main.humidity + "%"
+            index += 1;
+            timeCheck = dayjs(timeCheck).add(6, 'h').format('YYYY-MM-DD HH:mm:ss');
+            renderFiveDay();
+        }
     }
 }
+
 // event listener for search button
 searchButton.addEventListener('click', getCity);
