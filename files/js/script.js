@@ -1,19 +1,21 @@
 // search bar and button selectors
 var searchButton = document.getElementById("searchButton");
 var searchInput = document.getElementById("searchBar");
+var previousSearch = document.getElementById("history");
 // Element selectors for currently viewed city stats
 var currentCity = document.getElementById("currentCity");
 var currentTemp = document.getElementById("currentTemp");
 var currentWind = document.getElementById("currentWind");
 var currentHumidity = document.getElementById("currentHumidity");
 // selector to input data to charts for 5day
+var day = document.getElementsByClassName("day");
 var chartDataTemp = document.getElementsByClassName("dataTemp");
 var chartDataWind = document.getElementsByClassName("dataWind");
 var chartDataHum = document.getElementsByClassName("dataHum")
 // Current time and day
 var time = dayjs().format("YYYY-MM-DD HH:mm:ss");
 // Start point for 5day data entry
-var timeCheck = dayjs().add(1, 'd').format('YYYY-MM-DD 06:00:00')
+var currentDay = dayjs().format("YYYY-MM-DD");
 var index = 0;
 // variables to globally save last run lon and lat coord
 var currentWeather;
@@ -34,12 +36,12 @@ function getCity(event) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-            state = data[0].state
+            state = data[0].state;
             city = data[0].name;
             lon = data[0].lon;
             lat = data[0].lat;
-            searchInput.value = ''
+            searchHistory(city, state);
+            searchInput.value = '';
             checkWeather();
         })
 }
@@ -51,11 +53,17 @@ function checkWeather() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             currentWeather = data;
             renderCurrent();
-            renderFiveDay();
         })
+}
+// saving user search to local storage to be accessed later
+function searchHistory(city, state) {
+    localStorage.setItem(city, state);
+    var li = document.createElement("li");
+    li.classList = "text-center btn col-11 my-2 bg-dark text-light";
+    li.textContent = city + ", " + state;
+    previousSearch.append(li);
 }
 // Function for rendering data onto page
 function renderCurrent() {
@@ -63,18 +71,30 @@ function renderCurrent() {
     currentTemp.textContent = "Temp: " + currentWeather.list[0].main.temp + " Deg";
     currentWind.textContent = "Wind: " + currentWeather.list[0].wind.speed + " Mph";
     currentHumidity.textContent = "Humidity: " + currentWeather.list[0].main.humidity + "%";
+    renderFiveDay();
+    renderDates();
 }
-
+// rendering all data onto date cards
 function renderFiveDay() {
+    currentDay = dayjs().format("YYYY-MM-DD");
+    index = 0;
+    var timeCheck = dayjs().add(1, 'd').format('YYYY-MM-DD 06:00:00')
+    i = 0;
     for (i = 0; i < currentWeather.list.length; i++) {
         if (currentWeather.list[i].dt_txt === timeCheck) {
             chartDataTemp[index].textContent = currentWeather.list[i].main.temp + " Deg";
             chartDataWind[index].textContent = currentWeather.list[i].wind.speed + " Mph";
-            chartDataHum[index].textContent = currentWeather.list[i].main.humidity + "%"
+            chartDataHum[index].textContent = currentWeather.list[i].main.humidity + "%";
             index += 1;
             timeCheck = dayjs(timeCheck).add(6, 'h').format('YYYY-MM-DD HH:mm:ss');
-            renderFiveDay();
         }
+    }
+}
+// rendering correct dates onto day cards
+function renderDates() {
+    for (i = 0; i < day.length; i++) {
+        day[i].textContent = currentDay;
+        currentDay = dayjs(currentDay).add(1, "d").format("YYYY-MM-DD");
     }
 }
 

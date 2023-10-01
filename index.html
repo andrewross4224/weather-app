@@ -19,31 +19,32 @@
     <main class="container-fluid">
         <section class="row">
             <aside class="col-12 col-md-4">
-                <form>
-                    <label>Search for a City:</label>
-                    <input type="text" id="searchBar">
-                    <button class="btn" id="searchButton">Search</button>
+                <form class="row text-center">
+                    <label class="col-12 fw-bold">Search for a City:</label>
+                    <input class="col-10 offset-1 text-center" type="text" id="searchBar">
+                    <button class="col-10 offset-1 btn btn btn-outline-primary my-2" id="searchButton">Search</button>
                 </form>
-                <ul>
+                <ul id="history" class="text-center">
                     <!-- search history here -->
                 </ul>
             </aside>
-            <div class="col-12 col-md-8 text-center">
+            <div class="col-12 col-md-8">
+            <div class="col-12 text-center">
                 <!-- current viewed city -->
                 <h2 id="currentCity">Search for a City!</h2>
                 <!-- current temp -->
-                <p id="currentTemp"></p>
+                <p id="currentTemp" class="bg-dark text-light"></p>
                 <!-- windspeed -->
-                <p id="currentWind"></p>
+                <p id="currentWind" class="bg-dark text-light"></p>
                 <!-- humidity -->
-                <p id="currentHumidity"></p>
+                <p id="currentHumidity" class="bg-dark text-light"></p>
             </div>
-            <div class="col-12 col-md-8 offset-md-4">
+            <div class="col-12">
                 <div class="text-center">
                     <h3 id="fiveDay" class="col-12">5-Day Forecast:</h3>
 
                     <div class="info-card row text-center">
-                        <h4 class="col-3">Day 1</h4>
+                        <h4 class="col-3 day">Day 1</h4>
                         <h4 class="col-3">Temp</h4>
                         <h4 class="col-3">Wind</h4>
                         <h4 class="col-3">Humidity</h4>
@@ -74,7 +75,7 @@
                     </div>
                       
                     <div class="info-card row text-center">
-                        <h4 class="col-3">Day 2</h4>
+                        <h4 class="col-3 day">Day 2</h4>
                         <h4 class="col-3">Temp</h4>
                         <h4 class="col-3">Wind</h4>
                         <h4 class="col-3">Humidity</h4>
@@ -105,7 +106,7 @@
                     </div>
 
                     <div class="info-card row text-center">
-                        <h4 class="col-3">Day 3</h4>
+                        <h4 class="col-3 day">Day 3</h4>
                         <h4 class="col-3">Temp</h4>
                         <h4 class="col-3">Wind</h4>
                         <h4 class="col-3">Humidity</h4>
@@ -136,7 +137,7 @@
                     </div>
 
                     <div class="info-card row text-center">
-                        <h4 class="col-3">Day 4</h4>
+                        <h4 class="col-3 day">Day 4</h4>
                         <h4 class="col-3">Temp</h4>
                         <h4 class="col-3">Wind</h4>
                         <h4 class="col-3">Humidity</h4>
@@ -167,7 +168,7 @@
                     </div>
 
                     <div class="info-card row text-center">
-                        <h4 class="col-3">Day 5 </h4>
+                        <h4 class="col-3 day">Day 5 </h4>
                         <h4 class="col-3">Temp</h4>
                         <h4 class="col-3">Wind</h4>
                         <h4 class="col-3">Humidity</h4>
@@ -198,6 +199,7 @@
                     </div>
 
                 </div>
+            </div>
             </div>
         </section>
     </main>

@@ -11,3 +11,7 @@
     border-bottom: 2px solid var(--dark);
     padding-bottom: 10px;
 }
+
+#history {
+    padding-left: 0px;
+}
