@@ -34,7 +34,7 @@ setInterval(function updateTime() {
 // function to get lon and lat of city based on user input
 function getCity(event) {
     event.preventDefault();
-    var geo = 'http://api.openweathermap.org/geo/1.0/direct?q=' + userSearch + '&limit=5&appid=1c080c27bdccf0e577c9e856b87b1d20';
+    var geo = 'https://api.openweathermap.org/geo/1.0/direct?q=' + userSearch + '&limit=5&appid=1c080c27bdccf0e577c9e856b87b1d20';
     fetch(geo)
         .then(function (response) {
             return response.json();
