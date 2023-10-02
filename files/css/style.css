@@ -15,3 +15,12 @@
 #history {
     padding-left: 0px;
 }
+
+img {
+    max-width: 40px;
+}
+
+#currentIcon {
+    width: 100px;
+    max-width: none;
+}
